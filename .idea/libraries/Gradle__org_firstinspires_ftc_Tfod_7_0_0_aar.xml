@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: org.firstinspires.ftc:Tfod:7.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/584e5836439a9421989bfd9c6506ce7d/jetified-Tfod-7.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/584e5836439a9421989bfd9c6506ce7d/jetified-Tfod-7.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/584e5836439a9421989bfd9c6506ce7d/jetified-Tfod-7.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cc2a70a956906e9f5076cd74caa0e5d4/jetified-Tfod-7.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cc2a70a956906e9f5076cd74caa0e5d4/jetified-Tfod-7.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cc2a70a956906e9f5076cd74caa0e5d4/jetified-Tfod-7.0.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.firstinspires.ftc/tfod/7.0.0/33832ed5a4a9ff0d8b2a38b567e1e4ae094192dc/Tfod-7.0.0-javadoc.jar!/" />

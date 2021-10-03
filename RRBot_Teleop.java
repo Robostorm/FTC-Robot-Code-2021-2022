@@ -55,7 +55,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class RRBot_Teleop extends OpMode{
 
     /* Declare OpMode members. */
-    HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
+    RRBot_Hardware robot       = new RRBot_Hardware(); // use the class created to define a Pushbot's hardware
 
     /*
      * Code to run ONCE when the driver hits INIT

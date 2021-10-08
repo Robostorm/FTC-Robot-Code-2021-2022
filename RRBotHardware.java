@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -50,18 +51,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class RRBot_Hardware
+public class RRBotHardware
 {
     /* Public OpMode members. */
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
+    public DcMotor frontLeftDrive = null;
+    public DcMotor frontRightDrive = null;
+    public DcMotor rearLeftDrive = null;
+    public DcMotor rearRightDrive = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public RRBot_Hardware(){
+    public RRBotHardware(){
 
     }
 
@@ -71,19 +74,28 @@ public class RRBot_Hardware
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive  = hwMap.get(DcMotor.class, "left_drive");
-        rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        frontLeftDrive  = hwMap.get(DcMotor.class, "front_left_drive");
+        frontRightDrive = hwMap.get(DcMotor.class, "front_right_drive");
+        rearLeftDrive = hwMap.get(DcMotor.class, "rear_left_drive");
+        rearRightDrive = hwMap.get(DcMotor.class, "rear_right_drive");
+
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);
+        rearRightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        rearLeftDrive.setPower(0);
+        rearRightDrive.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rearLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rearRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
  }
 

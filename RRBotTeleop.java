@@ -29,12 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -51,11 +47,14 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="RRBot_Teleop", group="Pushbot")
-public class RRBot_Teleop extends OpMode{
+@TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
+public class RRBotTeleop extends OpMode{
 
     /* Declare OpMode members. */
-    RRBot_Hardware robot       = new RRBot_Hardware(); // use the class created to define a Pushbot's hardware
+    RRBotHardware robot       = new RRBotHardware(); // use the class created to define a Pushbot's hardware
+
+    //construct drive class
+    RRBotMecanumDrive drive = new RRBotMecanumDrive(robot);
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -97,8 +96,10 @@ public class RRBot_Teleop extends OpMode{
         left = -gamepad1.left_stick_y;
         right = -gamepad1.right_stick_y;
 
-        robot.leftDrive.setPower(left);
-        robot.rightDrive.setPower(right);
+        robot.frontLeftDrive.setPower(left);
+        robot.frontRightDrive.setPower(right);
+        robot.rearLeftDrive.setPower(left);
+        robot.rearRightDrive.setPower(right);
 
         // Send telemetry message to signify robot running;
         telemetry.addData("left",  "%.2f", left);

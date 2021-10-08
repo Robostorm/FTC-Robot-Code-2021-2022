@@ -89,21 +89,7 @@ public class RRBotTeleop extends OpMode{
      */
     @Override
     public void loop() {
-        double left;
-        double right;
-
-        // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
-
-        robot.frontLeftDrive.setPower(left);
-        robot.frontRightDrive.setPower(right);
-        robot.rearLeftDrive.setPower(left);
-        robot.rearRightDrive.setPower(right);
-
-        // Send telemetry message to signify robot running;
-        telemetry.addData("left",  "%.2f", left);
-        telemetry.addData("right", "%.2f", right);
+        DriveUpdate();
     }
 
     /*
@@ -111,5 +97,16 @@ public class RRBotTeleop extends OpMode{
      */
     @Override
     public void stop() {
+    }
+
+    /**
+     * Updates the drive system with manual and automatic movements
+     */
+    public void DriveUpdate(){
+        if(!drive.getIsAutoMove()){
+            drive.setMotorPower(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, -gamepad1.right_stick_y, true);
+        } else{
+            drive.AutoMoveEndCheck();
+        }
     }
 }

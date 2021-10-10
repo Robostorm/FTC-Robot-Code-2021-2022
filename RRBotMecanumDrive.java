@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.util.Range;
 
 /**
  * Controls the robot's mecanum drive base
- * @author Andrew Hollabaugh
+ * @author John Brereton
  * @since 2017-10-08
  */
 public class RRBotMecanumDrive

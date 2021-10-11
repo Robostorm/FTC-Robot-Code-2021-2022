@@ -42,6 +42,7 @@ public class RRBotTeleop extends OpMode{
     RRBotMecanumDrive drive = new RRBotMecanumDrive(robot);
 
     boolean carouselRotatorOn;
+    int armPosition = 4;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -103,8 +104,32 @@ public class RRBotTeleop extends OpMode{
         }
     }
 
+    /**
+     * Arm Positions:
+     * 0 - Lowest position, used when picking up freight
+     * 1 - Used when placing freight in shared shipping hub or lowest level or blue or red shipping hubs
+     * 2 - Used when placing freight in the 2nd level of the blue or red shipping hubs
+     * 3 - Used when placing freight in the 3rd and highest level of the blue or red shipping hubs
+     * 4 - Arm folds to fit within 18x18x18 sizing constrains
+     */
+    // Sets moves the arm between 4 preset positions
     public void ArmUpdate(){
-
+        if(gamepad1.dpad_up && armPosition < 4){
+            armPosition += 1;
+        }else if(gamepad1.dpad_down && armPosition > 0){
+            armPosition -= 1;
+        }
+        if(armPosition==0){
+            robot.armMotor.setTargetPosition(1);
+        }else if(armPosition==1){
+            robot.armMotor.setTargetPosition(1);
+        }else if(armPosition==2){
+            robot.armMotor.setTargetPosition(1);
+        }else if(armPosition==3){
+            robot.armMotor.setTargetPosition(1);
+        }else{
+            robot.armMotor.setTargetPosition(1);
+        }
     }
 
     public void CarouselRotatorUpdate(){
@@ -118,6 +143,7 @@ public class RRBotTeleop extends OpMode{
     }
 
     public void Telemetry(){
-
+        telemetry.addData("Arm Position", armPosition);
+        telemetry.addData("Encoder", "Count: " + robot.armMotor.getCurrentPosition());
     }
 }

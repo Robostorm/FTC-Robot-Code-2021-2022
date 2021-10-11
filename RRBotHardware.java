@@ -35,22 +35,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * This is NOT an opmode.
- *
- * This class can be used to define all the specific hardware for a single robot.
- * In this case that robot is a Pushbot.
- * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
- *
- * This hardware class assumes the following device names have been configured on the robot:
- * Note:  All names are lower case and some have single spaces between words.
- *
- * Motor channel:  Left  drive motor:        "left_drive"
- * Motor channel:  Right drive motor:        "right_drive"
- * Motor channel:  Manipulator drive motor:  "left_arm"
- * Servo channel:  Servo to open left claw:  "left_hand"
- * Servo channel:  Servo to open right claw: "right_hand"
- */
 public class RRBotHardware
 {
     /* Public OpMode members. */
@@ -58,6 +42,8 @@ public class RRBotHardware
     public DcMotor frontRightDrive = null;
     public DcMotor rearLeftDrive = null;
     public DcMotor rearRightDrive = null;
+    public DcMotor armMotor = null;
+    public DcMotor carouselRotator = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -78,24 +64,32 @@ public class RRBotHardware
         frontRightDrive = hwMap.get(DcMotor.class, "front_right_drive");
         rearLeftDrive = hwMap.get(DcMotor.class, "rear_left_drive");
         rearRightDrive = hwMap.get(DcMotor.class, "rear_right_drive");
+        armMotor = hwMap.get(DcMotor.class, "arm_motor");
+        carouselRotator = hwMap.get(DcMotor.class, "carousel_rotator");
 
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         rearRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
+        carouselRotator.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         rearLeftDrive.setPower(0);
         rearRightDrive.setPower(0);
+        armMotor.setPower(0);
+        carouselRotator.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rearLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rearRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rearLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        carouselRotator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
  }
 

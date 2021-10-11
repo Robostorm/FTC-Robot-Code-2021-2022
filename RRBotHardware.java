@@ -35,6 +35,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+/**
+ * Defines the robot hardware
+ * @author John Brereton
+ * @since 2021-10-08
+ */
+
 public class RRBotHardware
 {
     /* Public OpMode members. */

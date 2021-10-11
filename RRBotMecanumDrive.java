@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * Controls the robot's mecanum drive base
  * @author John Brereton
- * @since 2017-10-08
+ * @since 2021-10-08
  */
+
 public class RRBotMecanumDrive
 {
     RRBotHardware robot;
@@ -174,7 +174,7 @@ public class RRBotMecanumDrive
     }
 
     /**
-     * Returns whether an auto move is currently occuring
+     * Returns whether an auto move is currently occurring
      * @return isAutoMove
      */
     public boolean getIsAutoMove()

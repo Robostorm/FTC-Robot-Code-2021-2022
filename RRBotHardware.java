@@ -74,12 +74,12 @@ public class RRBotHardware
         armMotor.setDirection(DcMotor.Direction.FORWARD);
         carouselRotator.setDirection(DcMotor.Direction.FORWARD);
 
-        // Set all motors to zero power
+        // Set motor power on init
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         rearLeftDrive.setPower(0);
         rearRightDrive.setPower(0);
-        armMotor.setPower(0);
+        armMotor.setPower(1); // Motor is set in run to position mode, speed defined on init is used when moving to set position
         carouselRotator.setPower(0);
 
         // Set motor run modes

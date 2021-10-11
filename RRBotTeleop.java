@@ -32,22 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-/**
- * This file provides basic Telop driving for a Pushbot robot.
- * The code is structured as an Iterative OpMode
- *
- * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
- * All device access is managed through the HardwarePushbot class.
- *
- * This particular OpMode executes a basic Tank Drive Teleop for a PushBot
- * It raises and lowers the claw using the Gampad Y and A buttons respectively.
- * It also opens and closes the claws slowly using the left and right Bumper buttons.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
-@TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
+@TeleOp(name="Teleop")
 public class RRBotTeleop extends OpMode{
 
     /* Declare OpMode members. */
@@ -55,6 +40,8 @@ public class RRBotTeleop extends OpMode{
 
     //construct drive class
     RRBotMecanumDrive drive = new RRBotMecanumDrive(robot);
+
+    boolean carouselRotatorOn;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -66,8 +53,8 @@ public class RRBotTeleop extends OpMode{
          */
         robot.init(hardwareMap);
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        // Indicate to the driver the robot is initialized and ready to start
+        telemetry.addData("Status", "Initialized");    //
     }
 
     /*
@@ -90,6 +77,12 @@ public class RRBotTeleop extends OpMode{
     @Override
     public void loop() {
         DriveUpdate();
+
+        ArmUpdate();
+
+        CarouselRotatorUpdate();
+
+        Telemetry();
     }
 
     /*
@@ -108,5 +101,23 @@ public class RRBotTeleop extends OpMode{
         } else{
             drive.AutoMoveEndCheck();
         }
+    }
+
+    public void ArmUpdate(){
+
+    }
+
+    public void CarouselRotatorUpdate(){
+        if(carouselRotatorOn && gamepad1.y){
+            robot.carouselRotator.setPower(0);
+            carouselRotatorOn = false;
+        } else if(!carouselRotatorOn && gamepad1.y){
+            robot.carouselRotator.setPower(1);
+            carouselRotatorOn = true;
+        }
+    }
+
+    public void Telemetry(){
+
     }
 }

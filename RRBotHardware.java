@@ -85,7 +85,7 @@ public class RRBotHardware
         frontRightDrive.setPower(0);
         rearLeftDrive.setPower(0);
         rearRightDrive.setPower(0);
-        armMotor.setPower(1); // Motor is set in run to position mode, speed defined on init is used when moving to set position
+        armMotor.setPower(0);
         carouselRotator.setPower(0);
 
         // Set motor run modes

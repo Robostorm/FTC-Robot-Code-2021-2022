@@ -31,15 +31,20 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Teleop")
 public class RRBotTeleop extends OpMode{
 
     /* Declare OpMode members. */
     RRBotHardware robot       = new RRBotHardware(); // use the class created to define a Pushbot's hardware
+    private ElapsedTime runtime = new ElapsedTime();
 
     //construct drive class
     RRBotMecanumDrive drive = new RRBotMecanumDrive(robot);
+
+    // Arm Variables
+    double lastArmMove = 0;
 
     boolean carouselRotatorOn;
     int armPosition = 4;
@@ -114,21 +119,29 @@ public class RRBotTeleop extends OpMode{
      */
     // Sets moves the arm between 4 preset positions
     public void ArmUpdate(){
-        if(gamepad1.dpad_up && armPosition < 4){
+        // Increases the armPosition by one every time dpad up is pressed
+        if (gamepad1.dpad_up && armPosition < 4 && runtime.time() - lastArmMove > 0.5) {
             armPosition += 1;
-        }else if(gamepad1.dpad_down && armPosition > 0){
-            armPosition -= 1;
+            lastArmMove = (double) runtime.time();
         }
+        // Decreases the armPosition variable by one every time dpad down is pressed
+        else if (gamepad1.dpad_down && armPosition > 0 && runtime.time() - lastArmMove > 0.5) {
+            armPosition -= 1;
+            lastArmMove = (double) runtime.time();
+        }
+
+        // Sets the position of the arm to the position set in the armPosition variable
         if(armPosition==0){
-            robot.armMotor.setTargetPosition(1);
+            robot.armMotor.setTargetPosition(0);
+            robot.armMotor.setPower(1);
         }else if(armPosition==1){
-            robot.armMotor.setTargetPosition(1);
+            robot.armMotor.setTargetPosition(1000);
         }else if(armPosition==2){
-            robot.armMotor.setTargetPosition(1);
+            robot.armMotor.setTargetPosition(2000);
         }else if(armPosition==3){
-            robot.armMotor.setTargetPosition(1);
+            robot.armMotor.setTargetPosition(3000);
         }else{
-            robot.armMotor.setTargetPosition(1);
+            robot.armMotor.setTargetPosition(4000);
         }
     }
 
@@ -145,5 +158,6 @@ public class RRBotTeleop extends OpMode{
     public void Telemetry(){
         telemetry.addData("Arm Position", armPosition);
         telemetry.addData("Encoder", "Count: " + robot.armMotor.getCurrentPosition());
+        telemetry.addData("Runtime", runtime.toString());
     }
 }

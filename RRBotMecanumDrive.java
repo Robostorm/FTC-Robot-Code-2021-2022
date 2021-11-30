@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Controls the robot's mecanum drive base
- * @author John Brereton, Visvam Rajesh
+ * @author John Brereton
  * @since 2021-10-08
  */
 

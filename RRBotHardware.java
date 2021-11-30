@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Defines the robot hardware
- * @author John Brereton, Visvam Rajesh
+ * @author John Brereton
  * @since 2021-10-08
  */
 

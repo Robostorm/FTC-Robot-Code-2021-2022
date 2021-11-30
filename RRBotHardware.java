@@ -52,7 +52,7 @@ public class RRBotHardware
     public DcMotor carouselRotator = null;
 
     /* local OpMode members. */
-    HardwareMap hwMap =  null;
+    HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */

@@ -161,14 +161,7 @@ public class RRBotMecanumDrive
         robot.frontRightDrive.setPower(speed);
         robot.frontLeftDrive.setPower(speed);
     }
-    /**
-     * Automatically moves the robot based on a set speed, inches, and time
-     * @param speed
-     */
-    public void AutoEncoderMove(double speed, double inches, double time)
-    {
 
-    }
     /**
      * Checks if the movement is done by comparing the time elapsed and the time the movement is set to take.
      */

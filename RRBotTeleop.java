@@ -151,7 +151,7 @@ public class RRBotTeleop extends OpMode{
             robot.carouselRotator.setPower(0);
             carouselRotatorOn = false;
         } else if(!carouselRotatorOn && gamepad1.y){
-            robot.carouselRotator.setPower(1);
+            robot.carouselRotator.setPower(.5);
             carouselRotatorOn = true;
         }
     }

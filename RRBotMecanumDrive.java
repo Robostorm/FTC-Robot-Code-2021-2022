@@ -161,7 +161,15 @@ public class RRBotMecanumDrive
         robot.frontRightDrive.setPower(speed);
         robot.frontLeftDrive.setPower(speed);
     }
-    public void AutoTankMove(double leftSpeed,double rightSpeed, double time)
+
+    /**
+     * Moves the robot using speed for the left and right side seperately
+     * Like a tank
+     * @param leftSpeed
+     * @param rightSpeed
+     * @param time
+     */
+    public void AutoTankMove(double leftSpeed, double rightSpeed, double time)
     {
         isAutoMove = true;
         autoTime = time;
@@ -172,6 +180,23 @@ public class RRBotMecanumDrive
         robot.frontRightDrive.setPower(rightSpeed);
         robot.rearLeftDrive.setPower(leftSpeed);
         robot.frontLeftDrive.setPower(leftSpeed);
+    }
+
+    public void AutoArmMove(double speed, boolean isCarousel, double time)
+    {
+        isAutoMove = true;
+        autoTime = time;
+
+        autoMoveTime.reset();
+
+        if(isCarousel)
+        {
+            robot.carouselRotator.setPower(speed);
+        }
+        else
+        {
+            robot.armMotor.setPower(speed);
+        }
     }
     /**
      * Checks if the movement is done by comparing the time elapsed and the time the movement is set to take.

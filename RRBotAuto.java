@@ -64,8 +64,8 @@ public class RRBotAuto extends LinearOpMode {
 
     static final double     DRIVE_SPEED             = 0.25;
     static final double     TURN_SPEED              = 0.4;
-    static final double     ARM_SPEED               = 1;
-    static final double     CAROUSEL_SPEED          = 1;
+    static final double     ARM_SPEED              = 1;
+    static final double     CAROUSEL_SPEED = 1;
 
     @Override
     public void runOpMode() {
@@ -107,6 +107,5 @@ public class RRBotAuto extends LinearOpMode {
             telemetry.update();
         }
         drive.AutoTankMove(0.25, -0.25, runtime.time());
-        drive.AutoArmMove(CAROUSEL_SPEED, true, runtime.time());
     }
 }

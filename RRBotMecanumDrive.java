@@ -161,18 +161,7 @@ public class RRBotMecanumDrive
         robot.frontRightDrive.setPower(speed);
         robot.frontLeftDrive.setPower(speed);
     }
-    public void AutoTankMove(double leftSpeed,double rightSpeed, double time)
-    {
-        isAutoMove = true;
-        autoTime = time;
 
-        autoMoveTime.reset();
-
-        robot.rearRightDrive.setPower(rightSpeed);
-        robot.frontRightDrive.setPower(rightSpeed);
-        robot.rearLeftDrive.setPower(leftSpeed);
-        robot.frontLeftDrive.setPower(leftSpeed);
-    }
     /**
      * Checks if the movement is done by comparing the time elapsed and the time the movement is set to take.
      */

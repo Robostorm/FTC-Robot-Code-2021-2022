@@ -106,6 +106,6 @@ public class RRBotAuto extends LinearOpMode {
             telemetry.addData("status", "waiting for start command...");
             telemetry.update();
         }
-        drive.AutoTankMove(0.25, -0.25, runtime.time());
+        drive.AutoMove(DRIVE_SPEED, 10.0);
     }
 }

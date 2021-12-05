@@ -86,6 +86,7 @@ public class RRBotHardware
         rearLeftDrive.setPower(0);
         rearRightDrive.setPower(0);
         armMotor.setPower(0);
+        armMotor.setTargetPosition(0);
         carouselRotator.setPower(0);
 
         // Set motor run modes

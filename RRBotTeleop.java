@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Teleop")
@@ -47,7 +48,7 @@ public class RRBotTeleop extends OpMode{
     double lastArmMove = 0;
 
     boolean carouselRotatorOn;
-    int armPosition = 4;
+    int armPosition = 0;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -131,17 +132,17 @@ public class RRBotTeleop extends OpMode{
         }
 
         // Sets the position of the arm to the position set in the armPosition variable
+        robot.armMotor.setPower(1);
         if(armPosition==0){
             robot.armMotor.setTargetPosition(0);
-            robot.armMotor.setPower(1);
         }else if(armPosition==1){
-            robot.armMotor.setTargetPosition(1000);
+            robot.armMotor.setTargetPosition(320);
         }else if(armPosition==2){
-            robot.armMotor.setTargetPosition(2000);
+            robot.armMotor.setTargetPosition(375);
         }else if(armPosition==3){
-            robot.armMotor.setTargetPosition(3000);
+            robot.armMotor.setTargetPosition(400);
         }else{
-            robot.armMotor.setTargetPosition(4000);
+            robot.armMotor.setTargetPosition(450);
         }
     }
 

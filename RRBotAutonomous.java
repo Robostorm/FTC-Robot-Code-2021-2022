@@ -78,6 +78,9 @@ public class RRBotAutonomous extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        robot.init(hardwareMap);
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
@@ -88,7 +91,7 @@ public class RRBotAutonomous extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-
+            EncoderDriveTank(1,12,12, 20);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());

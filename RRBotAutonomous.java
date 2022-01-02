@@ -88,10 +88,10 @@ public class RRBotAutonomous extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        EncoderDriveTank(1,12,12, 20);
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-
-            EncoderDriveTank(1,12,12, 20);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());

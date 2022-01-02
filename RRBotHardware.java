@@ -50,6 +50,9 @@ public class RRBotHardware
     public DcMotor rearRightDrive = null;
     public DcMotor armMotor = null;
     public DcMotor carouselRotator = null;
+    public DcMotor intakeMotor = null;
+
+    public Servo intakePusher = null;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -72,13 +75,19 @@ public class RRBotHardware
         rearRightDrive = hwMap.get(DcMotor.class, "rear_right_drive");
         armMotor = hwMap.get(DcMotor.class, "arm_motor");
         carouselRotator = hwMap.get(DcMotor.class, "carousel_rotator");
+        intakeMotor = hwMap.get(DcMotor.class, "intake_motor");
+
+        intakePusher = hwMap.get(Servo.class, "intake_pusher");
+
+        intakePusher.setPosition(0);
 
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         rearRightDrive.setDirection(DcMotor.Direction.FORWARD);
         armMotor.setDirection(DcMotor.Direction.FORWARD);
-        carouselRotator.setDirection(DcMotor.Direction.FORWARD);
+        carouselRotator.setDirection(DcMotor.Direction.REVERSE);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set motor power on init
         frontLeftDrive.setPower(0);
@@ -88,6 +97,7 @@ public class RRBotHardware
         armMotor.setPower(0);
         armMotor.setTargetPosition(0);
         carouselRotator.setPower(0);
+        intakeMotor.setPower(0);
 
         // Set motor run modes
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -95,7 +105,8 @@ public class RRBotHardware
         rearLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        carouselRotator.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        carouselRotator.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Set motor zero power behavior
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -104,6 +115,7 @@ public class RRBotHardware
         rearRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         carouselRotator.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
  }
 

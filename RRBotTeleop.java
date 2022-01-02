@@ -34,6 +34,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static android.os.SystemClock.sleep;
+
 @TeleOp(name="Teleop")
 public class RRBotTeleop extends OpMode{
 
@@ -46,8 +48,10 @@ public class RRBotTeleop extends OpMode{
 
     // Arm Variables
     double lastArmMove = 0;
+    double lastIntake = 0;
 
-    boolean carouselRotatorOn;
+    boolean carouselRotatorOn = false;
+    boolean intakeOn = false;
     int armPosition = 0;
 
     /*
@@ -86,6 +90,8 @@ public class RRBotTeleop extends OpMode{
         DriveUpdate();
 
         ArmUpdate();
+
+        intakeUpdate();
 
         CarouselRotatorUpdate();
 
@@ -143,6 +149,24 @@ public class RRBotTeleop extends OpMode{
             robot.armMotor.setTargetPosition(400);
         }else{
             robot.armMotor.setTargetPosition(450);
+        }
+    }
+
+    public void intakeUpdate() {
+        if (intakeOn && gamepad1.x && runtime.time() - lastIntake > 0.5){
+            robot.intakeMotor.setPower(0);
+            intakeOn = false;
+            lastIntake = (double) runtime.time();
+        } else if(!carouselRotatorOn && gamepad1.x && runtime.time() - lastIntake > 0.5){
+            robot.intakeMotor.setPower(.5);
+            intakeOn = true;
+            lastIntake = (double) runtime.time();
+        }
+
+        if(gamepad1.b){
+            robot.intakePusher.setPosition(1);
+            sleep(1000);
+            robot.intakePusher.setPosition(0);
         }
     }
 

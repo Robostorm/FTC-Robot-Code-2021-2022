@@ -127,7 +127,7 @@ public class RRBotTeleop extends OpMode{
     // Sets moves the arm between 4 preset positions
     public void ArmUpdate(){
         // Increases the armPosition by one every time dpad up is pressed
-        if (gamepad1.dpad_up && armPosition < 4 && runtime.time() - lastArmMove > 0.5) {
+        if (gamepad1.dpad_up && armPosition < 5 && runtime.time() - lastArmMove > 0.5) {
             armPosition += 1;
             lastArmMove = (double) runtime.time();
         }
@@ -142,13 +142,15 @@ public class RRBotTeleop extends OpMode{
         if(armPosition==0){
             robot.armMotor.setTargetPosition(0);
         }else if(armPosition==1){
-            robot.armMotor.setTargetPosition(320);
+            robot.armMotor.setTargetPosition(700);
         }else if(armPosition==2){
-            robot.armMotor.setTargetPosition(375);
+            robot.armMotor.setTargetPosition(1400);
         }else if(armPosition==3){
-            robot.armMotor.setTargetPosition(400);
-        }else{
-            robot.armMotor.setTargetPosition(450);
+            robot.armMotor.setTargetPosition(2100);
+        }else if(armPosition==4){
+            robot.armMotor.setTargetPosition(2800);
+        }else {
+            robot.armMotor.setTargetPosition(3300);
         }
     }
 

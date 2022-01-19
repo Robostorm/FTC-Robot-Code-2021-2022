@@ -31,12 +31,9 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -50,6 +47,8 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Comparator;
+import java.util.Collections;
 
 
 /**
@@ -94,6 +93,8 @@ public class RRBotAutonomous extends LinearOpMode {
     private static final String VUFORIA_KEY =
             "AY+9b5H/////AAABmdP4VHcJckRZm8RJLoHJr6ZCdCwkvYa4e33vyEGuyyl/foBfTYRNT52OO+pJ+FP60SP1HncEL5fgHmD3lbe5XWqlqUt3a6y5hAXpuEDutdVo/n77+mI58Af9ZaBvv9cD2+eXKvwZrFDAEmgZ/+I4OWglTyO2u+zJSNWzA2dLEzM0sPCECY6wR3ytsbff21SAY1MBmVGVjFiAumcc4bdOapJRqXoKHywtduws9uCC3piJGMCqPZmqBTUOnR7myumXyZZWL4TQKfYkcsEKrrlReY0iOgdbTxvDrriljP/FqcoY9UFGenaT6oZ3+/DdfWE+fiarCSzoUdJy+h2BkamY8K4ehsk/bSKG0+qbC8IrQFUl";
 
+
+    private String cubePos = "";
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -155,7 +156,59 @@ public class RRBotAutonomous extends LinearOpMode {
                                 recognition.getLeft(), recognition.getTop());
                         telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                                 recognition.getRight(), recognition.getBottom());
+                        //EncoderDriveTank(1, 6, -6, 10);
+                        //EncoderDriveTank(1, 6, 6, 10);
                         i++;
+                    }
+
+                    // Now sort by address instead of name (default).
+                    Collections.sort(updatedRecognitions, new Comparator<Recognition>() {
+                        public int compare(Recognition one, Recognition other) {
+                            if (one.getTop() > other.getTop()) {
+                                return -1;
+                            } else if (one.getTop() < other.getTop()) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    });
+                    telemetry.addData("# Object Detected", updatedRecognitions.size());
+                    if (updatedRecognitions.size() > 0) {
+                        telemetry.addData("Lowest object", updatedRecognitions.get(0).getTop());
+                    }
+
+                    if (updatedRecognitions.size() > 1) {
+                        telemetry.addData("2nd Lowest object", updatedRecognitions.get(1).getTop());
+                    }
+
+                    if (updatedRecognitions.size() > 2) {
+                        telemetry.addData("3rd Lowest object", updatedRecognitions.get(2).getTop());
+                    }
+
+                    if (updatedRecognitions.size() >= 2) {
+                        Recognition left;
+                        Recognition center;
+                        if (updatedRecognitions.get(0).getLeft() < updatedRecognitions.get(1).getLeft()) {
+                            left = updatedRecognitions.get(0);
+                            center = updatedRecognitions.get(1);
+                        } else {
+                            left = updatedRecognitions.get(1);
+                            center = updatedRecognitions.get(0);
+                        }
+                        if (left.getLabel().equals("Ball") && center.getLabel().equals("Ball")) {
+                            telemetry.addData("Ball", "Right");
+                            cubePos = "right";
+                        } else if (left.getLabel().equals("Cube") && center.getLabel().equals("Cube")) {
+                            telemetry.addData("Cube", "Center");
+                            cubePos = "center";
+                        } else if (left.getLabel().equals("Cube") && center.getLabel().equals("Ball")) {
+                            telemetry.addData("Cube", "Left");
+                            cubePos = "left";
+                        } else {
+                            telemetry.addData("Cube", "Stanley is confused");
+                            cubePos = "center";
+                        }
                     }
                     telemetry.update();
                 }

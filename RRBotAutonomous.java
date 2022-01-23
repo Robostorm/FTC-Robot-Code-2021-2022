@@ -1,31 +1,4 @@
-package org.firstinspires.ftc.teamcode;/* Copyright (c) 2019 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -48,7 +21,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * is explained below.
  */
 @TeleOp(name = "Concept: TensorFlow Object Detection", group = "Concept")
-@Disabled
 public class RRBotAutonomous extends LinearOpMode {
     /* Note: This sample uses the all-objects Tensor Flow model (FreightFrenzy_BCDM.tflite), which contains
      * the following 4 detectable objects
@@ -81,8 +53,7 @@ public class RRBotAutonomous extends LinearOpMode {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+    private static final String VUFORIA_KEY = "AY+9b5H/////AAABmdP4VHcJckRZm8RJLoHJr6ZCdCwkvYa4e33vyEGuyyl/foBfTYRNT52OO+pJ+FP60SP1HncEL5fgHmD3lbe5XWqlqUt3a6y5hAXpuEDutdVo/n77+mI58Af9ZaBvv9cD2+eXKvwZrFDAEmgZ/+I4OWglTyO2u+zJSNWzA2dLEzM0sPCECY6wR3ytsbff21SAY1MBmVGVjFiAumcc4bdOapJRqXoKHywtduws9uCC3piJGMCqPZmqBTUOnR7myumXyZZWL4TQKfYkcsEKrrlReY0iOgdbTxvDrriljP/FqcoY9UFGenaT6oZ3+/DdfWE+fiarCSzoUdJy+h2BkamY8K4ehsk/bSKG0+qbC8IrQFUl";
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -116,7 +87,7 @@ public class RRBotAutonomous extends LinearOpMode {
             // to artificially zoom in to the center of image.  For best results, the "aspectRatio" argument
             // should be set to the value of the images used to create the TensorFlow Object Detection model
             // (typically 16/9).
-            tfod.setZoom(2.5, 16.0/9.0);
+            tfod.setZoom(1, 16.0/9.0);
         }
 
         /** Wait for the game to begin */
@@ -132,18 +103,36 @@ public class RRBotAutonomous extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                         telemetry.addData("# Object Detected", updatedRecognitions.size());
+                        
+                        int objectPos;
+                        if (updatedRecognitions.size() == 1) {
+                            objectPos = (int) updatedRecognitions.get(0).getLeft();
 
-                        // step through the list of recognitions and display boundary info.
-                        int i = 0;
-                        for (Recognition recognition : updatedRecognitions) {
-                            telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
-                            i++;
+                            telemetry.addData("Object Detection", objectPos);
                         }
+                        else if (updatedRecognitions.size() == 0){
+                            telemetry.addData("Object Detection", "No object detected");
+                        }
+                        else {
+                            telemetry.addData("Object Detection", "More than one object detected");
+                            
+                            int object = 0;
+                            float highestConfidence = 0;
+                            int i = 0;
+                            for (Recognition recognition : updatedRecognitions) {
+                                if (recognition.getConfidence() > highestConfidence) {
+                                    object = i;
+                                    highestConfidence = recognition.getConfidence();
+                                }
+                                i++;
+                            }
+                            
+                            objectPos = (int) updatedRecognitions.get(object).getLeft();
+                            telemetry.addData("Object Detection", objectPos);
+                        }
+
                         telemetry.update();
+
                     }
                 }
             }

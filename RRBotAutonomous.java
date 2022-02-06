@@ -47,6 +47,7 @@ public class RRBotAutonomous extends LinearOpMode {
         int objectPos = getObjectPos();
 
         telemetry.addData("Status", "Robot initialized, object located");
+        telemetry.update();
 
         waitForStart();
 
@@ -63,7 +64,7 @@ public class RRBotAutonomous extends LinearOpMode {
         int objectY = 0;
         int objectPos = 0;
 
-        while (runtime.seconds() > 5) {
+        while (runtime.seconds() < 5) {
             if (tfod != null) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.

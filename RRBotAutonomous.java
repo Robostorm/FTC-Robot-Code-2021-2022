@@ -54,7 +54,12 @@ public class RRBotAutonomous extends LinearOpMode {
 
 
         if (opModeIsActive()) {
+            while (opModeIsActive()){
+                objectPos = getObjectPos();
 
+                telemetry.addData("Status", "Robot running, object located");
+                telemetry.update();
+            }
         }
     }
 

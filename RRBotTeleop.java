@@ -103,6 +103,7 @@ public class RRBotTeleop extends OpMode{
      */
     @Override
     public void stop() {
+        //robot.armMotor.setTargetPosition(0);
     }
 
     /**
@@ -149,7 +150,7 @@ public class RRBotTeleop extends OpMode{
             robot.armMotor.setTargetPosition(2100);
         }else if(armPosition==4){
             robot.armMotor.setTargetPosition(2800);
-        }else {
+        }else if(armPosition==5){
             robot.armMotor.setTargetPosition(3300);
         }
     }

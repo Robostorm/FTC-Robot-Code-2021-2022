@@ -48,11 +48,13 @@ public class RRBotTeleop extends OpMode{
 
     // Arm Variables
     double lastArmMove = 0;
-    double lastIntake = 0;
+    int armPosition = 0;
 
     boolean carouselRotatorOn = false;
-    boolean intakeOn = false;
-    int armPosition = 0;
+    boolean prevCarouselRotator = false;
+
+    boolean prevGrabberUpdate = false;
+    boolean grabberOpen = false;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -91,7 +93,7 @@ public class RRBotTeleop extends OpMode{
 
         ArmUpdate();
 
-        intakeUpdate();
+        grabberUpdate();
 
         CarouselRotatorUpdate();
 
@@ -155,31 +157,36 @@ public class RRBotTeleop extends OpMode{
         }
     }
 
-    public void intakeUpdate() {
-        if (intakeOn && gamepad1.x && runtime.time() - lastIntake > 0.5){
-            robot.intakeMotor.setPower(0);
-            intakeOn = false;
-            lastIntake = (double) runtime.time();
-        } else if(!carouselRotatorOn && gamepad1.x && runtime.time() - lastIntake > 0.5){
-            robot.intakeMotor.setPower(.5);
-            intakeOn = true;
-            lastIntake = (double) runtime.time();
+    public void grabberUpdate() {
+        if(gamepad1.b && !prevGrabberUpdate){
+            if (!grabberOpen) {
+                robot.intakePusher.setPosition(1);
+                grabberOpen = true;
+            }
+            else {
+                robot.intakePusher.setPosition(0);
+                grabberOpen = false;
+            }
+            prevGrabberUpdate = true;
         }
-
-        if(gamepad1.b){
-            robot.intakePusher.setPosition(1);
-            sleep(1000);
-            robot.intakePusher.setPosition(0);
+        if (!gamepad1.b){
+            prevGrabberUpdate = false;
         }
     }
 
     public void CarouselRotatorUpdate(){
-        if(carouselRotatorOn && gamepad1.y){
-            robot.carouselRotator.setPower(0);
-            carouselRotatorOn = false;
-        } else if(!carouselRotatorOn && gamepad1.y){
-            robot.carouselRotator.setPower(.5);
-            carouselRotatorOn = true;
+        if (gamepad1.y && !prevCarouselRotator) {
+            if(carouselRotatorOn){
+                robot.carouselRotator.setPower(0);
+                carouselRotatorOn = false;
+            } else if(!carouselRotatorOn){
+                robot.carouselRotator.setPower(.5);
+                carouselRotatorOn = true;
+            }
+            prevCarouselRotator = true;
+        }
+        if (!gamepad2.y){
+            prevCarouselRotator = false;
         }
     }
 

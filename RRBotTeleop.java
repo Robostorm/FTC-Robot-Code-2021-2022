@@ -82,6 +82,7 @@ public class RRBotTeleop extends OpMode{
      */
     @Override
     public void start() {
+        robot.intakePusher.setPosition(0);
     }
 
     /*
@@ -175,12 +176,22 @@ public class RRBotTeleop extends OpMode{
     }
 
     public void CarouselRotatorUpdate(){
+        if(gamepad1.x && !prevCarouselRotator){
+            if(carouselRotatorOn){
+                robot.carouselRotator.setPower(0);
+                carouselRotatorOn = false;
+            }else{
+                robot.carouselRotator.setPower(-0.5);
+                carouselRotatorOn = true;
+            }
+            prevCarouselRotator = true;
+        }
         if (gamepad1.y && !prevCarouselRotator) {
             if(carouselRotatorOn){
                 robot.carouselRotator.setPower(0);
                 carouselRotatorOn = false;
-            } else if(!carouselRotatorOn){
-                robot.carouselRotator.setPower(.5);
+            }else{
+                robot.carouselRotator.setPower(0.5);
                 carouselRotatorOn = true;
             }
             prevCarouselRotator = true;

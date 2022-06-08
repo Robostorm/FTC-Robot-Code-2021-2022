@@ -77,8 +77,6 @@ public class RRBotHardware
 
         intakePusher = hwMap.get(Servo.class, "intake_pusher");
 
-        intakePusher.setPosition(0);
-
         frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         rearLeftDrive.setDirection(DcMotor.Direction.FORWARD);

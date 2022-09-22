@@ -20,8 +20,8 @@ public class RRBotAutonomous extends LinearOpMode {
             "Marker"
     };
 
-    private static final String VUFORIA_KEY = "AY+9b5H/////AAABmdP4VHcJckRZm8RJLoHJr6ZCdCwkvYa4e33vyEGuyyl/foBfTYRNT52OO+pJ+FP60SP1HncEL5fgHmD3lbe5XWqlqUt3a6y5hAXpuEDutdVo/n77+mI58Af9ZaBvv9cD2+eXKvwZrFDAEmgZ/+I4OWglTyO2u+zJSNWzA2dLEzM0sPCECY6wR3ytsbff21SAY1MBmVGVjFiAumcc4bdOapJRqXoKHywtduws9uCC3piJGMCqPZmqBTUOnR7myumXyZZWL4TQKfYkcsEKrrlReY0iOgdbTxvDrriljP/FqcoY9UFGenaT6oZ3+/DdfWE+fiarCSzoUdJy+h2BkamY8K4ehsk/bSKG0+qbC8IrQFUl";
-
+    private static final String VUFORIA_KEY = "INSERT KEY HERE";
+    
     private VuforiaLocalizer vuforia; // Local instance of Vuforia
 
     private TFObjectDetector tfod; // Local instance of TensorFlow Object
